@@ -12,7 +12,7 @@ services:
     env_file:
       - .env
     volumes:
-      - /opt/docker/teamspeak/:/var/ts3server/
+      - /opt/docker/teamspeak/ts3server:/var/ts3server/
       - ./decrypt-password.sh:/decrypt-password.sh
     entrypoint: ["/bin/sh", "/decrypt-password.sh"]
 
