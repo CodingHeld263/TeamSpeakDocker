@@ -1,0 +1,27 @@
+version: "3.8"
+
+services:
+  teamspeak:
+    image: teamspeak
+    container_name: teamspeak
+    restart: always
+    ports:
+      - "9987:9987/udp"
+      - "10011:10011"
+      - "30033:30033"
+    env_file:
+      - .env
+    volumes:
+      - /opt/docker/teamspeak/:/var/ts3server/
+      - ./decrypt-password.sh:/decrypt-password.sh
+    entrypoint: ["/bin/sh", "/decrypt-password.sh"]
+
+  db:
+    image: mariadb
+    container_name: teamspeak_db
+    restart: always
+    env_file:
+      - .env
+    volumes:
+      - /opt/docker/teamspeak/db:/var/lib/mysql
+    entrypoint: ["/bin/sh", "/decrypt-password.sh"]
